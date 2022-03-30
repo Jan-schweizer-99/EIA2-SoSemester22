@@ -72,11 +72,11 @@ namespace scopejump {
     ////////////////////////////////////////////////////////////////////////////////////////
 
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///                                                                                                                            ///
-    ////                                       Handle Load                                                                        ///
-    /////                                                                                                                        ///
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///                                                                                                                           ///
+    ///                                                      Handle Load                                                          ///
+    ///                                                                                                                           ///
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     function hndLoad(_event: Event): void {
@@ -119,7 +119,6 @@ namespace scopejump {
         //////////////////////////////////////////////////////////////////////////////////////*/
 
         let pictures: HTMLImageElement = <HTMLImageElement>document.querySelector("#picture");
-
 
         /* 1.3 //////////////////////////// HTMLFormElement ////////////////////////////////////
         // action: string                                                                  1  //
@@ -208,9 +207,9 @@ namespace scopejump {
     //////////////////////////////// Function and Events //////////////////////////////// 3 ////
     ///////////                         //////////////////                          ////////////
     
-    /* 3.1 ///////////////////////////////// Events ////////////////////////////////////////////
-    /////////////////////////////////////// Snippets ///////////////////////////////////////////
-    //////////////////////////////////////// input /////////////////////////////////////////////
+    // 3.1 ///////////////////////////////// Events ////////////////////////////////////////////
+    /*///////////////////////////////////// Snippets ///////////////////////////////////////////
+    /////////////////////////////////////// input if ///////////////////////////////////////////
     //                                                                                        //
     // if ((<HTMLInputElement>_event.target as Element).id == "customValue") {    // get ID from 
     // custom_Value = Number((<HTMLInputElement>_event.target).value);            // set a Var to event target and convert it to a Number
@@ -225,16 +224,32 @@ namespace scopejump {
     //                                                                                         //
     ///////////////////////////////////////////////////////////////////////////////////////////*/
 
-    // Global 
+    /* Global //////////////////////////////// 
+    export function StartGame(_event: Event): void {
+        console.log("start game");
+    }
+    */
 
 
-    //Private
-    
+    /* Private ////////////////////////////////
+        function StartGame(_event: Event): void {
+        console.log("start game");
+    }
+    */
     function StartGame(_event: Event): void {
         console.log("start game");
     }
 
-     // 3.2 ////////////////////////////////Functions///////////////////////////////////////////
+    /* 3.2 ////////////////////////////////Functions///////////////////////////////////////////
+    // 
+
+    */
+
+
+
+    
+     /* 3.3 /////////////////////////////////update/////////////////////////////////////////////
+     */
     
 
 
@@ -242,4 +257,41 @@ namespace scopejump {
     // END //                          Install Listeners                            //// 2 /////
     ////////////////////////////////////////////////////////////////////////////////////////////
     
+    ////////////////////////////////////Code snippets//////////////////////////////////////////
+
+    /* for-Loop
+    /*Simple for-loop
+        for (let i: number = 0; i < 50; i++) {
+        Array[i] = i;                           // write 
+        console.log(i)                          // console test   
+    }
+    */
+    /* Array for-loop
+        for (let i: number = 0; i < Array.length; i++) {
+        Array[i].doActivity();                           // open with instance of objects
+        Array[i].draw();                                 // start Draw function
+    }
+    */
+    /* If-Else 
+    if (customValue == 2) {
+    startGame();
+    }
+    else {
+    closeGame();
+    }
+    */
+    /* Funktion(X: Number)
+    function doSomething(Argument1: TYPE, Argument2: TYPE): void {            //Function with no return value
+        console.log("call deliveryman");
+        deliveryman.setActivity(1);
+    }
+        function doSomething(_argument1: TYPE, _argument2: Number): Number {   //Function with a Number value
+        console.log(_argument2);
+        return _argument2
+    }
+        function doSomething(_argument1: TYPE, _argument2: String): String {   //Function with a String value
+        console.log(String);
+        return _argument2
+    }
+    */
 }
