@@ -92,6 +92,7 @@ namespace scopejump {
         //////////////////////////////////////////////////////////////////////////////////////*/
 
         let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("#canvas");
+        setInterval(update, 50);
 
         /* 1.1 ////////////////////////////// HTML ELEMENT /////////////////////////////////////
         // draggable: boolean                                                              1  //
@@ -106,7 +107,7 @@ namespace scopejump {
         // focus(): void                                                                      //
         //////////////////////////////////////////////////////////////////////////////////////*/
 
-        let startButton: HTMLButtonElement = <HTMLButtonElement>document.querySelector("start");
+        //let startButton: HTMLButtonElement = <HTMLButtonElement>document.querySelector("start");
 
         /* 1.2 //////////////////////////// HTMLImageElement ///////////////////////////////////
         // complete: boolean                                                               1  //
@@ -118,7 +119,7 @@ namespace scopejump {
         //                                                                                    //
         //////////////////////////////////////////////////////////////////////////////////////*/
 
-        let pictures: HTMLImageElement = <HTMLImageElement>document.querySelector("#picture");
+        //let pictures: HTMLImageElement = <HTMLImageElement>document.querySelector("#picture");
 
         /* 1.3 //////////////////////////// HTMLFormElement ////////////////////////////////////
         // action: string                                                                  1  //
@@ -133,7 +134,7 @@ namespace scopejump {
         //                                                                                    //
         //////////////////////////////////////////////////////////////////////////////////////*/
 
-        let form: HTMLFormElement = <HTMLFormElement>document.querySelector("#picture");
+        //let form: HTMLFormElement = <HTMLFormElement>document.querySelector("#picture");
 
         /* 1.4 //////////////////////////// Input Element ///////////////////////////////////////
         // name: string                                                                     1  //
@@ -147,7 +148,7 @@ namespace scopejump {
         //                                                                                     //
         ///////////////////////////////////////////////////////////////////////////////////////*/
 
-        let input: HTMLInputElement  = <HTMLInputElement>document.querySelector("#slider");
+        //let input: HTMLInputElement  = <HTMLInputElement>document.querySelector("#slider");
 
 
         ///////////                       //////////////////                         ///////////
@@ -178,7 +179,7 @@ namespace scopejump {
         //                                                                                    //
         //////////////////////////////////////////////////////////////////////////////////////*/
         
-        Button.addEventListener("click", StartGame); 
+        //Button.addEventListener("click", StartGame); 
 
         /* input //// Select, Sliders, checkboxes, Radio ///////////////////////////////////////
         //                                                                                2   //
@@ -186,7 +187,7 @@ namespace scopejump {
         //                                                                                    //
         //////////////////////////////////////////////////////////////////////////////////////*/
 
-        startButton.addEventListener("Input", StartGame);
+        //startButton.addEventListener("Input", StartGame);
 
         /* 2.3 /////////////////////////////////// UIEvent ///////////////////////////////////
         // KeyboardEvent                                                                    //
@@ -236,7 +237,9 @@ namespace scopejump {
         console.log("start game");
     }
     */
-    function StartGame(_event: Event): void {
+    function update(_event: Event): void {
+        let picture: number;
+        
         console.log("start game");
     }
 
