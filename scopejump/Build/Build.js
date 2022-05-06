@@ -12,6 +12,7 @@ var scopejump;
     */
     window.addEventListener("load", hndLoad);
     let picture = 0;
+    let posX = 0;
     scopejump.Charracter = new Image();
     /* 0.3 ///////////////////////// declare Global Varibles  ////////////////////// 0 ////
 
@@ -51,8 +52,9 @@ var scopejump;
         // height: number                                                                  1  //
         // width: number                                                                      //
         //////////////////////////////////////////////////////////////////////////////////////*/
+        window.addEventListener("keydown", keyDownListener, false);
         let canvas = document.querySelector("#canvas");
-        setInterval(update, 50);
+        setInterval(update, 30);
         /* 1.1 ////////////////////////////// HTML ELEMENT /////////////////////////////////////
         // draggable: boolean                                                              1  //
         // innerText: string                                                                  //
@@ -169,13 +171,28 @@ var scopejump;
     }
     */
     function update(_event) {
+        let audio = new Audio("sound/jumpsound.wav");
+        scopejump.ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (picture == 11) {
             picture = 0;
         }
-        scopejump.ctx.drawImage(scopejump.Charracter, 0, 0);
+        if (picture == 2) {
+            audio.play();
+        }
+        scopejump.ctx.drawImage(scopejump.Charracter, posX, 0);
         scopejump.Charracter.src = "image/Charracter/Charracter" + picture + ".png";
-        console.log(picture);
+        //console.log(picture);
         picture++;
+    }
+    function keyDownListener(_event) {
+        if (_event.key == "ArrowRight") {
+            console.log("Rechts");
+            posX += 5;
+        }
+        else if (_event.key == "ArrowLeft") {
+            console.log("Links");
+            posX -= 5;
+        }
     }
     /* 3.2 ////////////////////////////////Functions///////////////////////////////////////////
     //

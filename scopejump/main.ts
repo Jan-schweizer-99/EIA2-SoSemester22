@@ -43,6 +43,7 @@ namespace scopejump {
 
     export let ctx: CanvasRenderingContext2D;
     let picture: number = 0;
+    let posX: number = 0;
     export let Charracter: HTMLImageElement = new Image();
 
     /* 0.3 ///////////////////////// declare Global Varibles  ////////////////////// 0 ////
@@ -83,6 +84,7 @@ namespace scopejump {
 
     function hndLoad(_event: Event): void {
 
+
         ////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////// define Elements //////////////////////////// 1 ////
         ///////////                         //////////////////                       ///////////
@@ -92,9 +94,11 @@ namespace scopejump {
         // height: number                                                                  1  //
         // width: number                                                                      //
         //////////////////////////////////////////////////////////////////////////////////////*/
-
+        window.addEventListener("keydown", keyDownListener, false);
         let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("#canvas");
-        setInterval(update, 50);
+
+
+        setInterval(update, 30);
 
         /* 1.1 ////////////////////////////// HTML ELEMENT /////////////////////////////////////
         // draggable: boolean                                                              1  //
@@ -169,7 +173,7 @@ namespace scopejump {
         // toDataURL(...): string                                                             //
         // toBlob(): Blob                                                                     //
         //////////////////////////////////////////////////////////////////////////////////////*/
-        
+
         ctx = canvas.getContext("2d")!;
 
 
@@ -180,7 +184,7 @@ namespace scopejump {
         // Button.addEventListener("click", StartGame);                                       //
         //                                                                                    //
         //////////////////////////////////////////////////////////////////////////////////////*/
-        
+
         //Button.addEventListener("click", StartGame); 
 
         /* input //// Select, Sliders, checkboxes, Radio ///////////////////////////////////////
@@ -209,7 +213,7 @@ namespace scopejump {
     ////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// Function and Events //////////////////////////////// 3 ////
     ///////////                         //////////////////                          ////////////
-    
+
     // 3.1 ///////////////////////////////// Events ////////////////////////////////////////////
     /*///////////////////////////////////// Snippets ///////////////////////////////////////////
     /////////////////////////////////////// input if ///////////////////////////////////////////
@@ -240,17 +244,31 @@ namespace scopejump {
     }
     */
     function update(_event: Event): void {
+        let audio: HTMLAudioElement = new Audio("sound/jumpsound.wav");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         if (picture == 11) {
             picture = 0;
         }
-        ctx.drawImage(Charracter, 0, 0);
+        if (picture == 2) {
+            audio.play();
+        }
+        ctx.drawImage(Charracter, posX, 0);
         Charracter.src = "image/Charracter/Charracter" + picture + ".png";
-        console.log(picture);
+        //console.log(picture);
         picture++;
-        
-        
-    }
 
+
+    }
+    function keyDownListener(_event: KeyboardEvent): void {
+        if (_event.key == "ArrowRight") {
+            console.log("Rechts");
+            posX += 5;
+        }
+        else if (_event.key == "ArrowLeft") {
+            console.log("Links");
+            posX -= 5;
+        }
+    }
     /* 3.2 ////////////////////////////////Functions///////////////////////////////////////////
     // 
 
@@ -258,16 +276,16 @@ namespace scopejump {
 
 
 
-    
-     /* 3.3 /////////////////////////////////update/////////////////////////////////////////////
-     */
-    
+
+    /* 3.3 /////////////////////////////////update/////////////////////////////////////////////
+    */
+
 
 
     //////////                         //////////////////                           ////////////
     // END //                          Install Listeners                            //// 2 /////
     ////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     ////////////////////////////////////Code snippets//////////////////////////////////////////
 
     /* for-Loop
