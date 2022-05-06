@@ -1,4 +1,6 @@
 declare namespace scopejump {
+    let ctx: CanvasRenderingContext2D;
+    let Charracter: HTMLImageElement;
 }
 declare namespace scopejump {
     class Vector {

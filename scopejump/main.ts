@@ -42,6 +42,8 @@ namespace scopejump {
     /////////////////////////////////////////////////////////////////////////////////////*/
 
     export let ctx: CanvasRenderingContext2D;
+    let picture: number = 0;
+    export let Charracter: HTMLImageElement = new Image();
 
     /* 0.3 ///////////////////////// declare Global Varibles  ////////////////////// 0 ////
 
@@ -238,9 +240,15 @@ namespace scopejump {
     }
     */
     function update(_event: Event): void {
-        let picture: number;
+        if (picture == 11) {
+            picture = 0;
+        }
+        ctx.drawImage(Charracter, 0, 0);
+        Charracter.src = "image/Charracter/Charracter" + picture + ".png";
+        console.log(picture);
+        picture++;
         
-        console.log("start game");
+        
     }
 
     /* 3.2 ////////////////////////////////Functions///////////////////////////////////////////
