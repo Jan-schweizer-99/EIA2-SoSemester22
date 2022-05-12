@@ -13,6 +13,8 @@ var scopejump;
     window.addEventListener("load", hndLoad);
     let picture = 0;
     let posX = 0;
+    let speed = 0;
+    let pressedkey = "none";
     scopejump.Charracter = new Image();
     /* 0.3 ///////////////////////// declare Global Varibles  ////////////////////// 0 ////
 
@@ -53,6 +55,7 @@ var scopejump;
         // width: number                                                                      //
         //////////////////////////////////////////////////////////////////////////////////////*/
         window.addEventListener("keydown", keyDownListener, false);
+        window.addEventListener("keyup", keyUpListener, false);
         let canvas = document.querySelector("#canvas");
         setInterval(update, 30);
         /* 1.1 ////////////////////////////// HTML ELEMENT /////////////////////////////////////
@@ -179,19 +182,51 @@ var scopejump;
         if (picture == 2) {
             audio.play();
         }
+        slowdown();
         scopejump.ctx.drawImage(scopejump.Charracter, posX, 0);
         scopejump.Charracter.src = "image/Charracter/Charracter" + picture + ".png";
         //console.log(picture);
         picture++;
+        console.log(speed);
     }
     function keyDownListener(_event) {
         if (_event.key == "ArrowRight") {
-            console.log("Rechts");
-            posX += 5;
+            //console.log("Rechts");
+            if (speed <= 25) { //Mit diesem Wert kann die maximale Geschwindigkeit eingestellt werden
+                speed += 2; //hiermit kann die Beschleunigung eingestell werden
+            }
+            posX += 1 * speed;
         }
         else if (_event.key == "ArrowLeft") {
-            console.log("Links");
-            posX -= 5;
+            //console.log("Links");
+            if (speed <= 25) { //Mit diesem Wert kann die maximale Geschwindigkeit eingestellt werden
+                speed += 2; //hiermit kann die Beschleunigung eingestell werden
+            }
+            posX -= 1 * speed;
+        }
+    }
+    function keyUpListener(_event) {
+        if (_event.key == "ArrowRight") {
+            pressedkey = "right";
+            console.log(pressedkey);
+            console.log(speed);
+        }
+        else if (_event.key == "ArrowLeft") {
+            pressedkey = "left";
+        }
+    }
+    function slowdown() {
+        if (speed == 0) {
+            pressedkey = "none";
+        }
+        if (pressedkey == "right") {
+            speed -= 2;
+            posX += 1 * speed;
+        }
+        else if (pressedkey == "left") {
+            //console.log("Links");
+            speed -= 2;
+            posX -= 1 * speed;
         }
     }
     /* 3.2 ////////////////////////////////Functions///////////////////////////////////////////
