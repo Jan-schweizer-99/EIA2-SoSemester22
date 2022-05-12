@@ -1,6 +1,22 @@
 declare namespace scopejump {
     let ctx: CanvasRenderingContext2D;
-    let Charracter: HTMLImageElement;
+    function keyDownListener(_event: KeyboardEvent): void;
+    function keyUpListener(_event: KeyboardEvent): void;
+}
+declare namespace scopejump {
+    class Charracter {
+        position: Vector;
+        frame: number;
+        speed: number;
+        pressedkey: string;
+        img: HTMLImageElement;
+        imghalf: HTMLImageElement;
+        constructor(_x: number, _y: number);
+        update(): void;
+        getPosition(): Vector;
+        setposition(_direction: string): void;
+        setspeed(): void;
+    }
 }
 declare namespace scopejump {
     class Vector {
