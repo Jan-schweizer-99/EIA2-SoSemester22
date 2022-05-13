@@ -8,7 +8,7 @@ var scopejump;
         //window.addEventListener("keyup", keyUpListener, false);
         scopejump.canvas = document.querySelector("#canvas");
         charracter = new scopejump.Charracter(1080 / 2, 1500); //neuer Main Charracter erstellen
-        setInterval(update, 26);
+        setInterval(update, 24);
         scopejump.ctx = canvas.getContext("2d");
     }
     function update(_event) {
@@ -82,9 +82,9 @@ var scopejump;
             if (this.direction == "up") {
                 console.log("up");
                 this.speed += 1;
-                if (this.position.y >= 1920 - 250) { //- ist die sprunghöhe
+                if (this.position.y >= 1920 - 350) { //- ist die sprunghöhe
                     this.position.y -= (2 * this.speed); //- ist die sprunghöhe
-                    if (this.position.y <= 1920 - 250) { //- ist die sprunghöhe
+                    if (this.position.y <= 1920 - 350) { //- ist die sprunghöhe
                         this.direction = "down";
                     }
                 }
@@ -98,18 +98,18 @@ var scopejump;
             this.speed = 1;
         }
         drawpicure() {
-            scopejump.ctx.drawImage(this.img, this.position.x - 125, this.position.y - 305);
-            scopejump.ctx.drawImage(this.img, this.position.x + 1080 - 125, this.position.y - 305);
-            scopejump.ctx.drawImage(this.img, this.position.x - 1080 - 125, this.position.y - 305);
+            scopejump.ctx.drawImage(this.img, this.position.x - 125, this.position.y - 320);
+            scopejump.ctx.drawImage(this.img, this.position.x + 1080 - 125, this.position.y - 320);
+            scopejump.ctx.drawImage(this.img, this.position.x - 1080 - 125, this.position.y - 320);
         }
         /* In Diesem Block geht es um die Inputlistener auf welche das Mob reagiert*/
         setposition(_direction) {
             if (_direction == "ArrowRight") {
-                this.position.x += 20;
+                this.position.x += 22;
                 //ctx.rotate(45 * Math.PI / 180);
             }
             if (_direction == "ArrowLeft") { // ->
-                this.position.x -= 20;
+                this.position.x -= 22;
                 //ctx.rotate(45 * Math.PI / 180);
             }
         }

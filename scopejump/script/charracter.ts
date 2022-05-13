@@ -71,10 +71,10 @@ namespace scopejump {
             if (this.direction == "up") {
                 console.log("up");
                 this.speed += 1;
-                if (this.position.y >= 1920 - 250) {        //- ist die sprunghöhe
+                if (this.position.y >= 1920 - 350) {        //- ist die sprunghöhe
                     this.position.y -= (2 * this.speed);    //- ist die sprunghöhe
 
-                    if (this.position.y <= 1920 - 250) {    //- ist die sprunghöhe
+                    if (this.position.y <= 1920 - 350) {    //- ist die sprunghöhe
                         this.direction = "down";
                     }
 
@@ -91,20 +91,20 @@ namespace scopejump {
             this.speed = 1;
         }
         drawpicure(): void {
-            ctx.drawImage(this.img, this.position.x - 125, this.position.y - 305);
-            ctx.drawImage(this.img, this.position.x + 1080 - 125, this.position.y - 305);
-            ctx.drawImage(this.img, this.position.x - 1080 - 125, this.position.y - 305);
+            ctx.drawImage(this.img, this.position.x - 125, this.position.y - 320);
+            ctx.drawImage(this.img, this.position.x + 1080 - 125, this.position.y - 320);
+            ctx.drawImage(this.img, this.position.x - 1080 - 125, this.position.y - 320);
         }
 
         /* In Diesem Block geht es um die Inputlistener auf welche das Mob reagiert*/
 
         setposition(_direction: string): void {                   // <-
             if (_direction == "ArrowRight") {
-                this.position.x += 20;
+                this.position.x += 22;
                 //ctx.rotate(45 * Math.PI / 180);
             }
             if (_direction == "ArrowLeft") {                      // ->
-                this.position.x -= 20;
+                this.position.x -= 22;
                 //ctx.rotate(45 * Math.PI / 180);
             }
         }

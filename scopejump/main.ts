@@ -14,7 +14,7 @@ namespace scopejump {
 
         charracter = new Charracter(1080 / 2, 1500);                                                   //neuer Main Charracter erstellen
 
-        setInterval(update, 26);
+        setInterval(update, 24);
 
         ctx = canvas.getContext("2d")!;
     }
