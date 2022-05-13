@@ -14,7 +14,7 @@ namespace scopejump {
 
         charracter = new Charracter(1080 / 2, 1500);                                                   //neuer Main Charracter erstellen
 
-        setInterval(update, 24);
+        setInterval(update, 23);
 
         ctx = canvas.getContext("2d")!;
     }
@@ -29,6 +29,10 @@ namespace scopejump {
     }
 
     export function keyUpListener(_event: KeyboardEvent): void {
-        charracter.setspeed();
+        let happend: boolean = _event.bubbles;
+        
+        charracter.setbreak(happend);
+        //charracter.setspeed("X");
+        //charracter.setspeed("Y");
     }
 }

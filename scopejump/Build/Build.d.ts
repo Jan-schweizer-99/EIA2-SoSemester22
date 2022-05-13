@@ -8,17 +8,21 @@ declare namespace scopejump {
         position: Vector;
         frame: number;
         speed: number;
+        speedX: number;
         pressedkey: string;
         img: HTMLImageElement;
         imghalf: HTMLImageElement;
         jump: number;
         direction: string;
         sequencecounter: number;
-        playsequence: Boolean;
+        playsequence: boolean;
+        brake: number;
+        brakehappend: Boolean;
         constructor(_x: number, _y: number);
         update(): void;
         getPosition(): Vector;
-        setspeed(): void;
+        setspeed(_xy: string): void;
+        setbreak(_keyup: Boolean): void;
         drawpicure(): void;
         setposition(_direction: string): void;
     }

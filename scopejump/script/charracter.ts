@@ -4,13 +4,16 @@ namespace scopejump {
         position: Vector;
         frame: number;
         speed: number = 1;
+        speedX: number = 2;
         pressedkey: string;
         img: HTMLImageElement = new Image();
         imghalf: HTMLImageElement = new Image();
         jump: number = 500;                                  //jump height 
         direction: string = "down";
         sequencecounter: number = 0;
-        playsequence: Boolean = false;
+        playsequence: boolean = false;
+        brake: number;
+        brakehappend: Boolean;
 
 
         constructor(_x: number, _y: number) {
@@ -38,9 +41,9 @@ namespace scopejump {
             }
 
             if (this.direction == "down") {
-                this.speed += 1;                                //fallgeshwindigkeit
+                this.speed += 1.5;                                //fallgeshwindigkeit
                 if (this.position.y <= 1920) {
-                    this.position.y += (2 * this.speed);
+                    this.position.y += (1 * this.speed);
                     if (this.position.y >= 1920) {
                         this.direction = "playsequence";
                     }
@@ -68,13 +71,13 @@ namespace scopejump {
 
 
             }
-            if (this.direction == "up") {
+            if (this.direction == "up") {                   // hochspringen
                 console.log("up");
                 this.speed += 1;
-                if (this.position.y >= 1920 - 350) {        //- ist die sprunghöhe
+                if (this.position.y >= 1920 - 300) {        //- ist die sprunghöhe
                     this.position.y -= (2 * this.speed);    //- ist die sprunghöhe
 
-                    if (this.position.y <= 1920 - 350) {    //- ist die sprunghöhe
+                    if (this.position.y <= 1920 - 300) {    //- ist die sprunghöhe        <-- Parameter dafür erstellen
                         this.direction = "down";
                     }
 
@@ -87,9 +90,24 @@ namespace scopejump {
             return this.position;
         }
 
-        setspeed(): void {
-            this.speed = 1;
+        setspeed(_xy: string): void {
+            if (_xy == "Y") {
+                this.speed = 1;
+            }
+            if (_xy == "X") {
+                this.speedX = 1.1;
+            }
+            if (_xy == "break") {
+            if (this.speedX <= 100)
+                this.speedX = 50;
+            }
+
         }
+        setbreak(_keyup: Boolean): void {
+            this.brakehappend = _keyup;
+        }
+
+
         drawpicure(): void {
             ctx.drawImage(this.img, this.position.x - 125, this.position.y - 320);
             ctx.drawImage(this.img, this.position.x + 1080 - 125, this.position.y - 320);
@@ -99,14 +117,34 @@ namespace scopejump {
         /* In Diesem Block geht es um die Inputlistener auf welche das Mob reagiert*/
 
         setposition(_direction: string): void {                   // <-
-            if (_direction == "ArrowRight") {
-                this.position.x += 22;
+
+            /*Abremsen*/
+
+            if (this.brakehappend == false) {
+                this.speedX *= 15;
+                if (this.speedX <= 1) {
+                    this.brakehappend = true;
+                }
+            }
+
+            /*taste drücken*/
+
+            if ((_direction == "ArrowRight") || (_direction == "d") || (_direction == "D")) {
+                console.log(this.brakehappend);
+                if (this.speedX <= 20) {
+                    this.speedX += 1;
+                }
+                this.position.x += (1 * this.speedX);
                 //ctx.rotate(45 * Math.PI / 180);
             }
-            if (_direction == "ArrowLeft") {                      // ->
-                this.position.x -= 22;
+            if ((_direction == "ArrowLeft") || (_direction == "a") || (_direction == "A")) {                      // ->
+                if (this.speedX <= 20) {
+                this.speedX += 1;
+                }
+                this.position.x -= (1 * this.speedX);
                 //ctx.rotate(45 * Math.PI / 180);
             }
+
         }
-}
+    }
 }
