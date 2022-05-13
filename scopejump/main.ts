@@ -10,11 +10,11 @@ namespace scopejump {
 
         //window.addEventListener("keydown", keyDownListener, false);
         //window.addEventListener("keyup", keyUpListener, false);
-        let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("#canvas");
+        export let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("#canvas");
 
-        charracter = new Charracter(0, 0);                                                   //neuer Main Charracter erstellen
+        charracter = new Charracter(1080 / 2, 1500);                                                   //neuer Main Charracter erstellen
 
-        setInterval(update, 30);
+        setInterval(update, 26);
 
         ctx = canvas.getContext("2d")!;
     }

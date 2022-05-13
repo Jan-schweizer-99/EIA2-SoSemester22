@@ -11,11 +11,20 @@ declare namespace scopejump {
         pressedkey: string;
         img: HTMLImageElement;
         imghalf: HTMLImageElement;
+        jump: number;
+        direction: string;
+        sequencecounter: number;
+        playsequence: Boolean;
         constructor(_x: number, _y: number);
         update(): void;
         getPosition(): Vector;
-        setposition(_direction: string): void;
         setspeed(): void;
+        drawpicure(): void;
+        setposition(_direction: string): void;
+    }
+}
+declare namespace scopejump {
+    class Pfad {
     }
 }
 declare namespace scopejump {
