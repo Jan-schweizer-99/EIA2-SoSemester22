@@ -3,6 +3,7 @@ var scopejump;
 (function (scopejump) {
     window.addEventListener("load", hndLoad);
     let charracter;
+    let pad;
     function hndLoad(_event) {
         //window.addEventListener("keydown", keyDownListener, false);
         //window.addEventListener("keyup", keyUpListener, false);
