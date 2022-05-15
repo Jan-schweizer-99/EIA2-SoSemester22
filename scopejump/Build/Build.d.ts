@@ -6,10 +6,8 @@ declare namespace scopejump {
 declare namespace scopejump {
     class Charracter {
         position: Vector;
-        frame: number;
         speed: number;
         speedX: number;
-        pressedkey: string;
         img: HTMLImageElement;
         imghalf: HTMLImageElement;
         jump: number;
@@ -18,17 +16,25 @@ declare namespace scopejump {
         playsequence: boolean;
         brake: number;
         brakehappend: Boolean;
+        framehandler: number;
+        activButton: string;
+        frame: number;
+        lastButton: string;
         constructor(_x: number, _y: number);
         update(): void;
         getPosition(): Vector;
         setspeed(_xy: string): void;
         setbreak(_keyup: Boolean): void;
         drawpicure(): void;
+        setofset(): void;
         setposition(_direction: string): void;
     }
 }
 declare namespace scopejump {
-    class Pfad {
+    class Pad {
+        positionChar: Vector;
+        constructor(_positionCharracter: Vector);
+        getposition(): Vector;
     }
 }
 declare namespace scopejump {

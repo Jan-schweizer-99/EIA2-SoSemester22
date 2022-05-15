@@ -2,10 +2,13 @@ namespace scopejump {
     export class Charracter {
 
         position: Vector;
-        frame: number;
-        speed: number = 1;
-        speedX: number = 2;
-        pressedkey: string;
+        //frame: number;
+
+        speed: number = 0.2;
+        speedX: number = 0.2;
+
+
+        //pressedkey: string;
         img: HTMLImageElement = new Image();
         imghalf: HTMLImageElement = new Image();
         jump: number = 500;                                  //jump height 
@@ -14,6 +17,12 @@ namespace scopejump {
         playsequence: boolean = false;
         brake: number;
         brakehappend: Boolean;
+
+
+        framehandler: number = 0;
+        activButton: string;
+        frame: number = 0;
+        lastButton: string;
 
 
         constructor(_x: number, _y: number) {
@@ -25,23 +34,61 @@ namespace scopejump {
         }
 
         update(): void {
+            //console.log(this.frame);
+            //let audio: HTMLAudioElement = new Audio("./sound/jumpsound.wav");
 
-
-            //console.log("test");
+            //console.log(this.activButton);
             this.img.src = "image/Charracter/Charracter0.png";
 
+            //console.log(this.speedX);
+            if ((this.frame > 0) && (this.activButton == "None") && (this.lastButton == "Right")) {
+                this.frame -= 0.01;
+                if (this.frame >= 4) {
+                    this.frame = 2;
+                }
+                else {
+                    this.position.x += 1 * (this.frame);
+                }
+                
+
+                //this.speedX -= 0.01;
+
+                //console.log(this.activButton);
+
+                
+            }
+            //console.log(this.speedX);
+            if ((this.frame > 0) && (this.activButton == "None") && (this.lastButton == "Left")) {
+                this.frame -= 0.01;
+                if (this.frame >= 4) {
+                    this.frame = 2;
+                }
+                else {
+                    this.position.x -= 1 * (this.frame);
+                }
+                
+
+                //this.speedX -= 0.01;
+
+                //console.log(this.activButton);
+
+                
+            }
+
             if (this.playsequence == false) {
+
                 this.drawpicure();
+
             }
             if (this.position.x >= 1080) {
-                this.position.x = 0;
+                this.position.x = 1;
             }
-            if (this.position.x < -1) {
-                this.position.x = 1080;
+            if (this.position.x <= 0) {
+                this.position.x = 1079;
             }
 
             if (this.direction == "down") {
-                this.speed += 1.5;                                //fallgeshwindigkeit
+                this.speed += 0.05;                                //fallgeshwindigkeit
                 if (this.position.y <= 1920) {
                     this.position.y += (1 * this.speed);
                     if (this.position.y >= 1920) {
@@ -50,34 +97,45 @@ namespace scopejump {
 
                 }
 
+
             }
             if (this.direction == "playsequence") {
-                this.playsequence = true;
-                this.speed = 1;
+                this.framehandler++;
                 this.img.src = "./image/Charracter/Charracter" + this.sequencecounter + ".png";
                 this.imghalf.src = "./image/Charracter/Charracter" + this.sequencecounter + ".png";
 
-                ctx.fillStyle = "#09f";
-
-                this.sequencecounter++;
                 this.drawpicure();
+                if (this.framehandler == 8) {                                                               //FRAMEHANDLER EINSTELLUNG
+                    this.playsequence = true;
+                    this.speed = 1;
+                    this.img.src = "./image/Charracter/Charracter" + this.sequencecounter + ".png";
+                    this.imghalf.src = "./image/Charracter/Charracter" + this.sequencecounter + ".png";
 
-                if (this.sequencecounter == 10) {
-                    this.sequencecounter = 0;
-                    this.direction = "up";
-                    this.playsequence = false;
+
+                    this.sequencecounter++;
+                    this.drawpicure();
+                    if (this.sequencecounter == 1) {
+
+                        //audio.play();
+
+                    }
+                    if (this.sequencecounter == 9) {
+                        this.sequencecounter = 0;
+                        this.direction = "up";
+                        this.playsequence = false;
+                    }
+                    this.framehandler = 0;
                 }
-
 
 
             }
             if (this.direction == "up") {                   // hochspringen
-                console.log("up");
-                this.speed += 1;
-                if (this.position.y >= 1920 - 300) {        //- ist die sprunghöhe
+                //console.log("up");
+                this.speed += 0.01;
+                if (this.position.y >= 1920 - 500) {        //- ist die sprunghöhe
                     this.position.y -= (2 * this.speed);    //- ist die sprunghöhe
 
-                    if (this.position.y <= 1920 - 300) {    //- ist die sprunghöhe        <-- Parameter dafür erstellen
+                    if (this.position.y <= 1920 - 500) {    //- ist die sprunghöhe        <-- Parameter dafür erstellen
                         this.direction = "down";
                     }
 
@@ -91,20 +149,23 @@ namespace scopejump {
         }
 
         setspeed(_xy: string): void {
+            this.frame++;
             if (_xy == "Y") {
                 this.speed = 1;
             }
             if (_xy == "X") {
-                this.speedX = 1.1;
+                this.speedX = 0.01;
             }
-            if (_xy == "break") {
-            if (this.speedX <= 100)
-                this.speedX = 50;
-            }
+            //if (_xy == "break") {
+            //if (this.speedX <= 100)
+            //    this.speedX = 50;
+            //}
 
         }
         setbreak(_keyup: Boolean): void {
-            this.brakehappend = _keyup;
+            //this.brakehappend = _keyup;
+            //this.activButton = "None";
+            this.activButton = "None";
         }
 
 
@@ -116,35 +177,81 @@ namespace scopejump {
 
         /* In Diesem Block geht es um die Inputlistener auf welche das Mob reagiert*/
 
+        setofset(): void {
+            if ((this.frame >= 0) && (this.activButton == "None") && (this.lastButton == "Right")) {
+
+                //console.log(this.frame);
+                //console.log(this.activButton);
+                console.log(this.speedX);
+                //this.position.x -= +1 * (this.speed);
+            }
+            if ((this.frame >= 0) && (this.activButton == "None") && (this.lastButton == "Left")) {
+
+                //console.log(this.frame);
+                //console.log(this.activButton);
+                console.log(this.speedX);
+                //this.position.x -= +1 * (this.speed);
+            }
+        }
+
+
+
+
         setposition(_direction: string): void {                   // <-
 
             /*Abremsen*/
 
-            if (this.brakehappend == false) {
-                this.speedX *= 15;
-                if (this.speedX <= 1) {
-                    this.brakehappend = true;
-                }
-            }
+            //this.speedX = 0;
 
             /*taste drücken*/
 
+
             if ((_direction == "ArrowRight") || (_direction == "d") || (_direction == "D")) {
-                console.log(this.brakehappend);
-                if (this.speedX <= 20) {
-                    this.speedX += 1;
+                if (this.frame == 60) {
+                    this.frame = 59;
                 }
-                this.position.x += (1 * this.speedX);
-                //ctx.rotate(45 * Math.PI / 180);
+                else {
+                    this.frame += 2;
+                }
+                this.activButton = "Right";
+                this.lastButton = this.activButton;
+                this.position.x += (1 * this.speedX);    //verechne den faktor Beschleunigung aus
+
+                if (this.speedX <= 14) {                //Maximale beschleunigung
+                    this.speedX = 13;
+                }
+                else {
+                    this.speedX += 0.1;                      //Beschleunigungswert erhöhen
+                    console.log(this.speedX);
+                }
+
             }
+
             if ((_direction == "ArrowLeft") || (_direction == "a") || (_direction == "A")) {                      // ->
-                if (this.speedX <= 20) {
-                this.speedX += 1;
+
+                if (this.frame == 60) {
+                    this.frame = 59;
                 }
-                this.position.x -= (1 * this.speedX);
-                //ctx.rotate(45 * Math.PI / 180);
+                else {
+                    this.frame += 2;
+                }
+
+                this.activButton = "Left";
+                this.lastButton = this.activButton;
+                this.position.x -= (1 * this.speedX);    //
+                if (this.speedX <= 14) {    //
+                    this.speedX = 13;
+                }
+                else {
+                    this.speedX += 0.1;                      //Beschleunigungswert erhöhen
+                    console.log(this.speedX);
+                }
             }
 
         }
     }
+
+
+
 }
+
