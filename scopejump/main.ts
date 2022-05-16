@@ -5,7 +5,7 @@ namespace scopejump {
 
     export let ctx: CanvasRenderingContext2D;
     let charracter: Charracter;
-    let pad: Pad;
+    let world: World;
 
     function hndLoad(_event: Event): void {
 
@@ -14,7 +14,9 @@ namespace scopejump {
         let canvas: HTMLCanvasElement = <HTMLCanvasElement>document.querySelector("#canvas");
 
         charracter = new Charracter(1080 / 2, 1500);                                                   //neuer Main Charracter erstellen
-
+        world = new World("test");
+        
+        world.generate();
         setInterval(update, 1);
 
         ctx = canvas.getContext("2d")!;
@@ -22,8 +24,13 @@ namespace scopejump {
     
     function update(_event: Event): void {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        //console.log(charracter.getPosition());
+        
+        world.getCharData(charracter.getPosition(), charracter.getdirection());
+        console.log(world.getEvent());
+        world.draw();
         charracter.update();
-        console.log(charracter.getPosition());
         
     }
     export function keyDownListener(_event: KeyboardEvent): void {

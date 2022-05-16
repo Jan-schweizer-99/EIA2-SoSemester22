@@ -32,6 +32,9 @@ namespace scopejump {
             //this.position.x = x;
             //this.position.y = y;
         }
+        getdirection(): string {
+            return this.direction;
+        }
 
         update(): void {
             //console.log(this.frame);
@@ -80,7 +83,7 @@ namespace scopejump {
                 this.drawpicure();
 
             }
-            if (this.position.x >= 1080) {
+            if (this.position.x >= 1080) {                        //auf andere screenseite springen
                 this.position.x = 1;
             }
             if (this.position.x <= 0) {

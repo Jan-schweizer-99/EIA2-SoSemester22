@@ -21,6 +21,7 @@ declare namespace scopejump {
         frame: number;
         lastButton: string;
         constructor(_x: number, _y: number);
+        getdirection(): string;
         update(): void;
         getPosition(): Vector;
         setspeed(_xy: string): void;
@@ -32,9 +33,12 @@ declare namespace scopejump {
 }
 declare namespace scopejump {
     class Pad {
-        positionChar: Vector;
-        constructor(_positionCharracter: Vector);
+        position: Vector;
+        legh: number;
+        constructor(_x: number, _y: number);
+        getlegh(): number;
         getposition(): Vector;
+        draw(): void;
     }
 }
 declare namespace scopejump {
@@ -45,5 +49,20 @@ declare namespace scopejump {
         set(_x: number, _y: number): void;
         scale(_factor: number): void;
         add(_addend: Vector): void;
+    }
+}
+declare namespace scopejump {
+    class World {
+        mode: string;
+        pad: Pad[];
+        colission: boolean;
+        lastcolission: Boolean;
+        Y: number;
+        noblock: boolean;
+        constructor(_mode: string);
+        generate(): void;
+        draw(): void;
+        getCharData(_position: Vector, _direction: string): void;
+        getEvent(): boolean;
     }
 }

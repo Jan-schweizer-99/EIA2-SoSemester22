@@ -3,19 +3,24 @@ var scopejump;
 (function (scopejump) {
     window.addEventListener("load", hndLoad);
     let charracter;
-    let pad;
+    let world;
     function hndLoad(_event) {
         //window.addEventListener("keydown", keyDownListener, false);
         //window.addEventListener("keyup", keyUpListener, false);
         let canvas = document.querySelector("#canvas");
         charracter = new scopejump.Charracter(1080 / 2, 1500); //neuer Main Charracter erstellen
+        world = new scopejump.World("test");
+        world.generate();
         setInterval(update, 1);
         scopejump.ctx = canvas.getContext("2d");
     }
     function update(_event) {
         scopejump.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        //console.log(charracter.getPosition());
+        world.getCharData(charracter.getPosition(), charracter.getdirection());
+        console.log(world.getEvent());
+        world.draw();
         charracter.update();
-        console.log(charracter.getPosition());
     }
     function keyDownListener(_event) {
         charracter.setposition(_event.key);
@@ -56,6 +61,9 @@ var scopejump;
             //this.position.x = x;
             //this.position.y = y;
         }
+        getdirection() {
+            return this.direction;
+        }
         update() {
             //console.log(this.frame);
             //let audio: HTMLAudioElement = new Audio("./sound/jumpsound.wav");
@@ -88,7 +96,7 @@ var scopejump;
             if (this.playsequence == false) {
                 this.drawpicure();
             }
-            if (this.position.x >= 1080) {
+            if (this.position.x >= 1080) { //auf andere screenseite springen
                 this.position.x = 1;
             }
             if (this.position.x <= 0) {
@@ -226,12 +234,28 @@ var scopejump;
 var scopejump;
 (function (scopejump) {
     class Pad {
-        positionChar;
-        constructor(_positionCharracter) {
-            this.positionChar = _positionCharracter;
+        position;
+        legh = 200;
+        constructor(_x, _y) {
+            this.position = new scopejump.Vector(_x, _y);
+        }
+        getlegh() {
+            return this.legh;
         }
         getposition() {
-            return this.positionChar;
+            return this.position;
+        }
+        draw() {
+            //console.log("test");
+            scopejump.ctx.beginPath();
+            scopejump.ctx.lineWidth = 30;
+            scopejump.ctx.strokeStyle = "#cc6d00";
+            scopejump.ctx.lineCap = "round";
+            scopejump.ctx.lineJoin = "miter";
+            scopejump.ctx.miterLimit = 4;
+            scopejump.ctx.moveTo(this.position.x, this.position.y);
+            scopejump.ctx.lineTo(this.position.x + this.legh, this.position.y);
+            scopejump.ctx.stroke();
         }
     }
     scopejump.Pad = Pad;
@@ -258,5 +282,56 @@ var scopejump;
         }
     }
     scopejump.Vector = Vector;
+})(scopejump || (scopejump = {}));
+var scopejump;
+(function (scopejump) {
+    class World {
+        mode;
+        pad = [];
+        colission;
+        lastcolission;
+        Y;
+        noblock;
+        constructor(_mode) {
+            _mode = this.mode;
+        }
+        generate() {
+            for (let i = 0; i <= 9; i++) {
+                //this.pad[0] = new Pad (50, 50);
+                this.pad[i] = new scopejump.Pad(Math.random() * (1080 - 215), 1920 - ((i + 1) * 192));
+            }
+        }
+        draw() {
+            for (let i = 0; i < this.pad.length; i++) {
+                this.pad[i].draw();
+            }
+        }
+        getCharData(_position, _direction) {
+            for (let i = 0; i < this.pad.length; i++) {
+                if ((_position.y <= this.pad[i].getposition().y) && (_position.x >= this.pad[i].getposition().x) && (_position.x <= this.pad[i].getposition().x + this.pad[i].getlegh())) {
+                    this.noblock = false;
+                    if ((_position.y >= this.pad[i].getposition().y)) {
+                        this.colission = true;
+                        this.Y = 1920 - _position.y;
+                    }
+                    break;
+                }
+                else {
+                    this.colission = false;
+                }
+                if ((this.colission == false) && (_direction == "down")) {
+                    if ((_position.x <= this.pad[i].getposition().x) && (_position.x >= this.pad[i].getposition().x + this.pad[i].getlegh())) {
+                        for (let i = 0; i < this.pad.length; i++) {
+                            this.pad[i].position.y++;
+                        }
+                    }
+                }
+            }
+        }
+        getEvent() {
+            return this.colission;
+        }
+    }
+    scopejump.World = World;
 })(scopejump || (scopejump = {}));
 //# sourceMappingURL=Build.js.map
